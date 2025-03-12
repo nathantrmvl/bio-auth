@@ -18,19 +18,19 @@ const styles = StyleSheet.create({
   btn: {
     paddingVertical: 10,
     paddingHorizontal: 24,
-    elevation: 3, // Sombra sutil para dar profundidad
+    elevation: 3, 
     marginTop: 5,
-    transition: "all 0.2s ease-in-out", // Transición suave
+    transition: "all 0.2s ease-in-out", 
   },
   btnText: {
-    color: "#000000", // Contraste claro
+    color: "#000000",
     fontSize: 16,
-    fontWeight: "600", // Acentúa el texto
-    textTransform: "uppercase", // Estilo moderno y claro
+    fontWeight: "600", 
+    textTransform: "uppercase", 
   },
-  // Efecto hover (en dispositivos que lo soporten)
+  
   btnActive: {
     transform: [{ scale: 0.98 }],
-    elevation: 5, // Aumento de sombra al presionar
+    elevation: 5, 
   },
 });

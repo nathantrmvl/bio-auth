@@ -2,19 +2,18 @@ import { useReducer, useCallback } from "react";
 import { useUserApi } from "../hooks/useUserApi";
 
 export interface UserForm {
-  _id?: string; // Hacer opcional para evitar errores en handleSubmit y handleDelete
+  _id?: string;
   name: string;
   f_surname: string;
   m_surname: string;
   image: string;
   email: string;
   userKey: string;
-  program: string;
   password: string;
   type_user: string;
-  position: string;  // Nuevo parámetro
-  department: string; // Nuevo parámetro
-  status: string; // Nuevo parámetro
+  position: string;
+  department: string;
+  status: string;
 }
 
 const initialState: UserForm = {
@@ -24,12 +23,11 @@ const initialState: UserForm = {
   image: '',
   email: '',
   userKey: '',
-  program: '',
   password: '',
   type_user: '',
-  position: 'sin definir', // Valor por defecto
-  department: 'sin asignar', // Valor por defecto
-  status: '', // Valor por defecto
+  position: 'sin definir',
+  department: 'sin asignar',
+  status: '',
 };
 
 type Action =
@@ -59,22 +57,22 @@ export const useUserForm = () => {
   };
 
   const handleSubmit = useCallback(async () => {
-    const { _id, userKey, ...userData } = state;
+    const { _id, ...userData } = state;
 
     if (_id) {
-      // Si tiene _id, es una actualización
-      await updateUser(userKey, state);  
+      // Si tiene _id, actualizar usuario
+      await updateUser(_id, userData);  
     } else {
-      // Si no tiene _id, es un nuevo usuario
+      // Si no tiene _id, crear usuario
       await createUser(state);  
     }
   }, [state, createUser, updateUser]);
 
   const handleDelete = useCallback(() => {
-    if (state.userKey) {
-      deleteUser(state.userKey);
+    if (state._id) {
+      deleteUser(state._id);
     }
-  }, [state.userKey, deleteUser]);
+  }, [state._id, deleteUser]);
 
   const handleReset = () => {
     dispatch({ type: "RESET_FORM" });

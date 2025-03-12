@@ -1,134 +1,121 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
-  // Área segura para la pantalla
   safeArea: {
     flex: 1,
     backgroundColor: '#F2F2F2',
   },
 
-  // Contenedor principal para los elementos
   container: {
-    padding: 20,
+    padding: width * 0.05, // Ajuste dinámico del padding
     alignItems: 'center',
   },
 
-  // Título del formulario
   title: {
-    fontSize: 24,
+    fontSize: width * 0.06, // Escalado según el ancho de la pantalla
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 20,
+    marginBottom: width * 0.05,
   },
+
   horizontalButtonsContainer: {
-    flexDirection: 'row',  // Alinea los botones horizontalmente
-    justifyContent: 'space-between',  // Espacio entre los botones
-    width: '100%',  // Asegura que ocupe todo el ancho disponible
-    marginVertical: 10,  // Margen vertical para dar espacio
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: width * 0.025,
   },
-  
-  // Si lo deseas, también puedes definir un estilo específico para los botones dentro de esta fila:
+
   horizontalButton: {
-    flex: 1,  // Hace que los botones ocupen el mismo ancho
-    marginHorizontal: 5,  // Espacio horizontal entre los botones
-  },  
-  // Estilos para los campos de entrada de texto
+    flex: 1,
+    marginHorizontal: width * 0.02,
+  },
+
   input: {
     width: '100%',
-    height: 50,
-    paddingHorizontal: 10,
-    marginVertical: 10,
+    height: height * 0.06, // Escalado en función de la altura
+    paddingHorizontal: width * 0.03,
+    marginVertical: height * 0.015,
     backgroundColor: '#FFF',
     borderRadius: 8,
     borderColor: '#CCC',
     borderWidth: 1,
-    fontSize: 16,
+    fontSize: width * 0.045,
   },
 
-  // Estilo para el campo de entrada cuando tiene valor
   inputFocus: {
-    borderColor: '#007AFF', // Borde azul cuando el campo tiene valor
+    borderColor: '#007AFF',
   },
 
-  // Vista previa de la imagen seleccionada
   imagePreview: {
-    width: 200,
-    height: 200,
-    marginTop: 20,
+    width: width * 0.5,
+    height: width * 0.5,
+    marginTop: width * 0.05,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#DDD',
     resizeMode: 'cover',
   },
 
-  // Contenedor para los botones
   buttonContainer: {
-    marginTop: 20,
+    marginTop: width * 0.05,
     width: '100%',
   },
 
-  // Mensaje de éxito cuando se guarda el formulario
   successMessage: {
-    marginTop: 20,
+    marginTop: width * 0.05,
     color: '#28a745',
     textAlign: 'center',
   },
 
-  // Estilo para el mensaje de error
   errorMessage: {
-    marginTop: 20,
+    marginTop: width * 0.05,
     color: '#dc3545',
     textAlign: 'center',
   },
 
-  // Estilos para los botones
   btn: {
     width: '100%',
-    height: 50,
+    height: height * 0.06,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: height * 0.015,
     borderRadius: 8,
-    backgroundColor: '#007AFF', // Color por defecto de los botones
+    backgroundColor: '#007AFF',
   },
 
-  // Estilo de texto dentro de los botones
   btnText: {
     color: '#FFF',
-    fontSize: 16,
+    fontSize: width * 0.045,
     fontWeight: 'bold',
   },
 
-  // Estilo del botón de eliminación
   btnDelete: {
     backgroundColor: '#FF4F4F',
   },
 
-  // Estilo del botón para regresar
   btnBack: {
     backgroundColor: '#FF6F00',
   },
 
-  // Estilo cuando el botón está deshabilitado
   btnDisabled: {
-    backgroundColor: '#D3D3D3', // Color cuando el botón está deshabilitado
+    backgroundColor: '#D3D3D3',
   },
 
-  // Estilo de campo de entrada con error
   inputError: {
-    borderColor: '#FF4F4F', // Borde rojo cuando hay un error en el campo
+    borderColor: '#FF4F4F',
   },
 
-  // Contenedor para el tipo de usuario (campo de texto)
   inputTypeUser: {
-    marginTop: 20,
+    marginTop: width * 0.05,
     width: '100%',
-    height: 50,
-    paddingHorizontal: 10,
+    height: height * 0.06,
+    paddingHorizontal: width * 0.03,
     backgroundColor: '#FFF',
     borderRadius: 8,
     borderColor: '#CCC',
     borderWidth: 1,
-    fontSize: 16,
+    fontSize: width * 0.045,
   },
 });

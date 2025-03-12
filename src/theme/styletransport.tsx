@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styletransport = StyleSheet.create({
+export const styles = StyleSheet.create({
   containerGlobal: {
     flex: 1,
     backgroundColor: "#f5f5f5",
@@ -24,6 +24,14 @@ export const styletransport = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
   },
+  mapContainerMediumTraffic: {
+    borderColor: "orange",
+    borderWidth: 2,
+  },
+  mapContainerHighTraffic: {
+    borderColor: "red",
+    borderWidth: 2,
+  },
   button: {
     backgroundColor: "#007bff",
     padding: 15,
@@ -46,13 +54,14 @@ export const styletransport = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  errorText: {
-    fontSize: 18,
-    color: "#ff4444",
-    textAlign: "center",
-    marginTop: 20,
-  },
   distanceText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#007bff",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  timeText: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#007bff",
@@ -79,6 +88,16 @@ export const styletransport = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
   },
+  input: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 20,
+    fontSize: 16,
+    color: "#333",
+  },
   modalButton: {
     backgroundColor: "#007bff",
     padding: 10,
@@ -103,5 +122,19 @@ export const styletransport = StyleSheet.create({
     color: "#333",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  activeRoutesContainer: {
+    marginTop: 20,
+  },
+  activeRoutesTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 10,
+  },
+  activeRouteText: {
+    fontSize: 16,
+    color: "#007bff",
+    marginBottom: 5,
   },
 });

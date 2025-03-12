@@ -51,7 +51,7 @@ export const StackNavigator = () => {
             />
             <Stack.Screen
                 name="QrScannerScreen"
-                component={QrScannerScreen} // Agrega la pantalla aquí
+                component={QrScannerScreen} 
                 options={{ title: "QR Scanner" }}
             />
             <Stack.Screen name="TransporteScreen" 

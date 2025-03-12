@@ -1,6 +1,7 @@
 import { useContext, useState, useReducer } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { loginUser } from "../api/bioapi";
+import { UserResponse } from "../interfaces/api-bioauth";
 
 // Tipo de datos para el login
 export interface LoginData {
@@ -35,7 +36,7 @@ const dataReducer = (state: LoginData, action: Action): LoginData => {
 
 // Hook para el login
 export const useLogin = () => {
-    const { signIn, changeUserName, changeUserImage, changeUserKey, changeTypeUser } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [state, dispatch] = useReducer(dataReducer, initialLoginData);
     const [request, setRequest] = useState<boolean | null>(null);
@@ -51,15 +52,25 @@ export const useLogin = () => {
 
         try {
             // Intentamos el login con la API
-            const user = await loginUser(state.userKey, state.password);
+            const user: UserResponse = await loginUser(state.userKey, state.password);
 
             if (user) {
-                // Si el login es exitoso, actualizamos el contexto
-                signIn();
-                changeUserName(`${user.name} ${user.f_surname} ${user.m_surname}`);
-                changeUserImage(user.image);
-                changeUserKey(user.usuario); // Cambiado a usuario
-                changeTypeUser(user.type_user);
+                // Si el login es exitoso, actualizamos el contexto con todos los datos del usuario
+                signIn({
+                    isLoggenIn: true,
+                    _id: user._id,
+                    name: user.name,
+                    f_surname: user.f_surname,
+                    m_surname: user.m_surname,
+                    image: user.image,
+                    userKey: user.userKey,
+                    email: user.email,
+                    password: user.password,
+                    type_user: user.type_user,
+                    department: user.department,
+                    position: user.position,
+                    status: user.status,
+                });
 
                 setRequest(true); // Login exitoso
                 return true;

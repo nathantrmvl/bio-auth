@@ -45,39 +45,39 @@ export const FormUserScreen = ({ navigation, route }: Props) => {
 
   const handleSave = async () => {
     try {
-        await handleSubmit();
-        if (state._id) {
-            setSuccessMessage(`Usuario ${state.status} correctamente`);
-        } else {
-            setSuccessMessage('Usuario registrado exitosamente');
-            handleReset();
-        }
-        navigation.navigate("AdminHome");
+      await handleSubmit();
+      if (state._id) {
+        setSuccessMessage(`Usuario ${state.status} correctamente`);
+      } else {
+        setSuccessMessage('Usuario registrado exitosamente');
+        handleReset();
+      }
+      navigation.navigate("StackNavigator", { screen: "AdminHome" });
     } catch (error) {
-        console.error('Error al guardar el usuario:', error);
-        Alert.alert('Error', 'Ocurrió un error al guardar el usuario.');
+      console.error('Error al guardar el usuario:', error);
+      Alert.alert('Error', 'Ocurrió un error al guardar el usuario.');
     }
-};
+  };
 
-const handleToggleStatus = async () => {
-  const newStatus = state.status === 'Bloqueado' ? 'Activo' : 'Bloqueado';
+  const handleToggleStatus = async () => {
+    const newStatus = state.status === 'Bloqueado' ? 'Activo' : 'Bloqueado';
 
-  Alert.alert(
+    Alert.alert(
       "Confirmación",
       `¿Estás seguro de que deseas ${newStatus.toLowerCase()} a este usuario?`,
       [
-          { text: "Cancelar", style: "cancel" },
-          {
-              text: "Sí, continuar",
-              onPress: async () => {
-                  handleInputChange('status', newStatus);
-                  await handleSubmit(); // Guarda automáticamente el cambio
-                  setSuccessMessage(`Usuario ${newStatus} correctamente.`);
-              }
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Sí, continuar",
+          onPress: async () => {
+            handleInputChange('status', newStatus);
+            await handleSubmit();
+            setSuccessMessage(`Usuario ${newStatus} correctamente.`);
           }
+        }
       ]
-  );
-};
+    );
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -107,7 +107,6 @@ const handleToggleStatus = async () => {
           onChangeText={(text) => handleInputChange('m_surname', text)}
           placeholder="Apellido materno"
         />
-        
         <TextInput
           style={[styles.input, state.email ? styles.inputFocus : {}]}
           value={state.email}
@@ -149,7 +148,7 @@ const handleToggleStatus = async () => {
           placeholder="Posición"
         />
 
-         <TextInput
+        <TextInput
           style={[styles.input, state.type_user ? styles.inputFocus : {}]}
           value={state.type_user}
           onChangeText={(text) => handleInputChange('type_user', text)}
@@ -163,7 +162,6 @@ const handleToggleStatus = async () => {
               title={state.userKey ? 'Actualizar registro' : 'Crear Registro'}
               backgroundColor="#007AFF"
             />
-  
             {state.userKey && (
               <BtnTouch
                 title={state.status === 'Bloqueado' ? "Desbloquear" : "Bloquear"}

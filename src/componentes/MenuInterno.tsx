@@ -1,14 +1,56 @@
 import React, { useContext } from "react";
 import { View, Text, Image } from "react-native";
-import { AuthContext } from '../context/AuthContext';
 import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
+import { AuthContext } from '../context/AuthContext';
 import { ButtonText } from "./ButtonText";
-import { styles } from "../theme/stylemenu";
+import { styles } from "../theme/stylemenu"; 
 
 export const MenuInterno = ({ navigation }: DrawerContentComponentProps) => {
     const { authState, logOut } = useContext(AuthContext);
-    const type_user = authState.type_user?.trim().toLowerCase(); // Normalizamos el tipo de usuario
-    const { username, userImage } = authState;
+    const { name, f_surname, m_surname, image, type_user } = authState;
+
+    // Normalizamos el tipo de usuario
+    const normalizedTypeUser = type_user?.trim().toLowerCase();
+
+    // Opciones del menú basadas en el tipo de usuario
+    const menuOptions = {
+        administrador: [
+            { title: "Usuarios", action: () => navigation.navigate('StackNavigator', { screen: 'AdminHome' }) },
+            { title: "Credencial Virtual", action: () => navigation.navigate("UserCredentialScreen") },
+            { title: "School Calendar", action: () => navigation.navigate("CalendarScreen") },
+            { title: "Services", action: () => navigation.navigate("ServiceScreen") },
+            { title: "Ruta de transporte", action: () => navigation.navigate("TransporteScreen") },
+            { title: "Generar QR", action: () => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" }) },
+            { title: "Escanear Código QR", action: () => navigation.navigate("QrNavigator", { screen: "QrScannerScreen" }) },
+            { title: "Formulario Registro", action: () => navigation.navigate("FormUserScreen") },
+        ],
+        empleado: [
+            { title: "Credencial Virtual", action: () => navigation.navigate("UserCredentialScreen") },
+            { title: "School Calendar", action: () => navigation.navigate("CalendarScreen") },
+            { title: "Services", action: () => navigation.navigate("ServiceScreen") },
+            { title: "Ruta de transporte", action: () => navigation.navigate("TransporteScreen") },
+            { title: "Generar QR", action: () => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" }) },
+        ],
+        autobus: [
+            { title: "Credencial Virtual", action: () => navigation.navigate("UserCredentialScreen") },
+            { title: "School Calendar", action: () => navigation.navigate("CalendarScreen") },
+            { title: "Services", action: () => navigation.navigate("ServiceScreen") },
+            { title: "Ruta de transporte", action: () => navigation.navigate("TransporteScreen") },
+            { title: "Generar QR", action: () => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" }) },
+            { title: "Escanear Código QR", action: () => navigation.navigate("QrNavigator", { screen: "QrScannerScreen" }) },
+        ],
+        seguridad: [
+            { title: "Credencial Virtual", action: () => navigation.navigate("UserCredentialScreen") },
+            { title: "School Calendar", action: () => navigation.navigate("CalendarScreen") },
+            { title: "Services", action: () => navigation.navigate("ServiceScreen") },
+            { title: "Ruta de transporte", action: () => navigation.navigate("TransporteScreen") },
+            { title: "Generar QR", action: () => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" }) },
+            { title: "Escanear Código QR", action: () => navigation.navigate("QrNavigator", { screen: "QrScannerScreen" }) },
+        ],
+    };
+
+    // Obtener las opciones del menú según el tipo de usuario
+    const currentMenuOptions = menuOptions[normalizedTypeUser] || [];
 
     return (
         <DrawerContentScrollView contentContainerStyle={styles.container}>
@@ -17,72 +59,32 @@ export const MenuInterno = ({ navigation }: DrawerContentComponentProps) => {
                 <Image
                     style={styles.avatar}
                     source={
-                        userImage
-                            ? { uri: `data:image/jpeg;base64,${userImage}` }
+                        image
+                            ? { uri: `data:image/jpeg;base64,${image}` }
                             : require('./../../assets/cuervoutvtfull.png')
                     }
                 />
                 <Text style={styles.username}>
-                    {username || "Usuario"}
+                    {name} {f_surname} {m_surname}
                 </Text>
                 <Text style={styles.userType}>
-                    {type_user === "administrador" ? "Administrador/@" :
-                    type_user === "seguridad" ? "Seguridad" :
-                    type_user === "autobus" ? "Autobús" :
-                    "Empleado"}
+                    {normalizedTypeUser === "administrador" ? "Administrador/@" :
+                     normalizedTypeUser === "seguridad" ? "Seguridad" :
+                     normalizedTypeUser === "autobus" ? "Chofer" :
+                     "Empleado"}
                 </Text>
             </View>
 
             {/* Opciones del Menú */}
             <View style={styles.menu}>
-                {/* Menú para Administrador */}
-                {type_user === "administrador" && (
-                    <>
-                        <ButtonText action={() => navigation.navigate('StackNavigator', { screen: 'AdminHome' })} title="Usuarios" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("UserCredentialScreen")} title="Credencial Virtual" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("CalendarScreen")} title="School Calendar" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("ServiceScreen")} title="Services" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("TransporteScreen")} title="Ruta de transporte" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" })} title="Generar QR" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("QrNavigator", { screen: "QrScannerScreen" })} title="Escanear Código QR" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("FormUserScreen")} title="Formulario Registro" style={styles.menuButton} />
-                    </>
-                )}
-
-                {/* Menú para Empleado */}
-                {type_user === "empleado" && (
-                    <>
-                        <ButtonText action={() => navigation.navigate("UserCredentialScreen")} title="Credencial Virtual" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("CalendarScreen")} title="School Calendar" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("ServiceScreen")} title="Services" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("TransporteScreen")} title="Ruta de transporte" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" })} title="Generar QR" style={styles.menuButton} />
-                    </>
-                )}
-
-                {/* Menú para Autobús */}
-                {type_user === "Autobus" && (
-                    <>
-                        <ButtonText action={() => navigation.navigate("UserCredentialScreen")} title="Credencial Virtual" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("CalendarScreen")} title="School Calendar" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("ServiceScreen")} title="Services" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("TransporteScreen")} title="Ruta de transporte" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" })} title="Generar QR" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("QrNavigator", { screen: "QrScannerScreen" })} title="Escanear Código QR" style={styles.menuButton} />
-                    </>
-                )}
-
-                {/* Menú para Seguridad */}
-                {type_user === "seguridad" && (
-                    <>
-                        <ButtonText action={() => navigation.navigate("UserCredentialScreen")} title="Credencial Virtual" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("CalendarScreen")} title="School Calendar" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("ServiceScreen")} title="Services" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("TransporteScreen")} title="Ruta de transporte" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("QrNavigator", { screen: "QrGeneratorScreen" })} title="Generar QR" style={styles.menuButton} />
-                        <ButtonText action={() => navigation.navigate("QrNavigator", { screen: "QrScannerScreen" })} title="Escanear Código QR" style={styles.menuButton} />
-                    </>
-                )}
+                {currentMenuOptions.map((option, index) => (
+                    <ButtonText
+                        key={index}
+                        action={option.action}
+                        title={option.title}
+                        style={styles.menuButton}
+                    />
+                ))}
 
                 {/* Cerrar sesión - Disponible para todos */}
                 <ButtonText action={logOut} title="Cerrar sesión" style={styles.logoutButton} />

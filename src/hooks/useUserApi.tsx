@@ -9,7 +9,7 @@ export const useUserApi = () => {
   // Cargar usuarios
   const loadUsers = useCallback(async () => {
     try {
-      const response = await bioApi.get<UserResponse[]>("/users");  // Endpoint correcto
+      const response = await bioApi.get<UserResponse[]>("/users");  // Obtener todos los usuarios
       setListUsers(response.data);
     } catch (error: any) {
       console.error("Error cargando usuarios:", error);
@@ -21,22 +21,11 @@ export const useUserApi = () => {
   // Crear usuario
   const createUser = useCallback(async (data: UserForm) => {
     try {
-      const dataBody = {
-        userKey: data.userKey,
-        password: data.password,
-        name: data.name || "Nombre por defecto",
-        f_surname: data.f_surname || "Apellido Paterno",
-        m_surname: data.m_surname || "Apellido Materno",
-        email: data.email,
-        image: data.image || "",
-        program: data.program || "sin definir",
-        type_user: data.type_user || "usuario",
-        position: data.position || "sin definir", // Nuevo parámetro
-        department: data.department || "sin asignar", // Nuevo parámetro
-        status: data.status || "Activo"
+      const userData = {
+        ...data,
+        status: data.status || 'Activo' // Valor por defecto para status
       };
-
-      const response = await bioApi.post("/users", dataBody);
+      const response = await bioApi.post("/users", userData);
       console.log("Usuario creado:", response.data);
       await loadUsers();
     } catch (error: any) {
@@ -45,23 +34,10 @@ export const useUserApi = () => {
     }
   }, [loadUsers]);
 
-  // Actualizar usuario
-  const updateUser = useCallback(async (userKey: string, data: Partial<UserForm>) => {
+  // Actualizar usuario por _id
+  const updateUser = useCallback(async (_id: string, data: Partial<UserForm>) => {
     try {
-      const dataBody = {
-        name: data.name,
-        f_surname: data.f_surname,
-        m_surname: data.m_surname,
-        image: data.image,
-        email: data.email,
-        program: data.program,
-        type_user: data.type_user,
-        position: data.position, // Nuevo parámetro
-        department: data.department, // Nuevo parámetro
-        status: data.status // Asegurar booleano si se envía
-      };
-
-      const response = await bioApi.patch(`/users/${userKey}`, dataBody);
+      const response = await bioApi.patch(`/users/${_id}`, data);
       console.log("Usuario actualizado:", response.data);
       await loadUsers();
     } catch (error: any) {
@@ -69,10 +45,10 @@ export const useUserApi = () => {
     }
   }, [loadUsers]);
 
-  // Eliminar usuario
-  const deleteUser = useCallback(async (userKey: string) => {
+  // Eliminar usuario por _id
+  const deleteUser = useCallback(async (_id: string) => {
     try {
-      const response = await bioApi.delete(`/users/${userKey}`);
+      const response = await bioApi.delete(`/users/${_id}`);
       console.log("Usuario eliminado:", response.data);
       await loadUsers();
     } catch (error: any) {

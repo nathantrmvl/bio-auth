@@ -14,7 +14,7 @@ export const Fab = ({ title, position, action }: Props) => {
       onPress={action}
       style={position === 'button_right' ? styles.fabLocationBR : styles.fabLocationBL}
       accessible={true}
-      accessibilityLabel={title}  // Mejora accesibilidad
+      accessibilityLabel={title}  
     >
       <View style={styles.fab}>
         <Svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@ export const Fab = ({ title, position, action }: Props) => {
 
 const styles = StyleSheet.create({
   fab: {
-    backgroundColor: "#007AFF", // Azul atractivo
+    backgroundColor: "#007AFF",
     width: 60,
     height: 60,
     borderRadius: 30, 

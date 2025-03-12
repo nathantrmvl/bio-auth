@@ -1,11 +1,11 @@
 export interface UserResponse {
-    name:         string;
+  _id: string;
+  name:         string;
     f_surname:     string;
     m_surname:     string;
     image:          string;
     userKey:        string;
     email:          string;
-    program:        string;
     password:       string;
     type_user:      string;
     department: string;
@@ -21,7 +21,6 @@ export interface UserForm {
     f_surname: string;
     m_surname: string;
     image: string;
-    program: string;
     type_user: string;
     department: string;
     position: string;

@@ -9,10 +9,17 @@ export const QrGeneratorScreen = () => {
     const [estado, setEstado] = useState(false);
     const [time, setTime] = useState(0);
 
+    // Objeto con los datos del usuario desde AuthContext
     const usuario = {
-        nombre: authState.username,
-        userKey: authState.userKey,
-        hora: Date.now(),
+        image: authState.image, // Imagen del usuario
+        name: authState.name, // Nombre
+        f_surname: authState.f_surname, // Primer apellido
+        m_surname: authState.m_surname, // Segundo apellido
+        department: authState.department, // Departamento
+        position: authState.position, // Puesto
+        status: authState.status, // Estado
+        userKey: authState.userKey, // Clave de usuario
+        hora: Date.now(), // Hora de generación del QR
     };
 
     // Temporizador optimizado
@@ -64,11 +71,11 @@ export const QrGeneratorScreen = () => {
                 </TouchableOpacity>
             ) : (
                 <QRCode
-                    value={JSON.stringify(usuario)}
+                    value={JSON.stringify(usuario)} // Convertir el objeto usuario a JSON
                     color="#5271ff" // Morado atractivo
                     backgroundColor="#FFFFFF" // Fondo blanco para el QR
                     size={300}
-                    logo={{ uri: `data:image/png;base64,${authState.userImage}` }}
+                    logo={{ uri: `data:image/png;base64,${authState.image}` }} // Logo basado en la imagen del usuario
                     logoBorderRadius={30}
                     logoSize={50}
                 />

@@ -1,25 +1,27 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 export const styleadmin = StyleSheet.create({
   containerGlobal: {
     flex: 1,
     backgroundColor: '#f9f9f9',
-    padding: 20,
+    padding: width * 0.05,
     justifyContent: 'flex-start',
   },
   headerLogo: {
-    width: 250,
-    height: 80,
+    width: width * 0.4,
+    height: height * 0.1,
     alignSelf: 'center',
     resizeMode: 'contain',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   headingadmin: {
-    fontSize: 32,
+    fontSize: width * 0.06,
     fontWeight: 'bold',
     color: '#1a1a1a',
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -30,12 +32,12 @@ export const styleadmin = StyleSheet.create({
   searchInput: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 12,
+    padding: width * 0.03,
     borderRadius: 12,
     marginRight: 12,
     borderColor: '#e0e0e0',
     borderWidth: 1,
-    fontSize: 16,
+    fontSize: width * 0.04,
     color: '#333',
   },
   buttonGroup: {
@@ -45,7 +47,7 @@ export const styleadmin = StyleSheet.create({
   userListItem: {
     backgroundColor: '#ffffff',
     borderRadius: 16,
-    padding: 18,
+    padding: width * 0.05,
     marginVertical: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
@@ -58,9 +60,9 @@ export const styleadmin = StyleSheet.create({
     borderLeftColor: '#5271ff',
   },
   userImage: {
-    width: 85,
-    height: 85,
-    borderRadius: 42.5,
+    width: width * 0.2,
+    height: width * 0.2,
+    borderRadius: width * 0.1,
     marginRight: 15,
     borderWidth: 2,
     borderColor: '#5271ff',
@@ -70,23 +72,23 @@ export const styleadmin = StyleSheet.create({
     paddingRight: 10,
   },
   userName: {
-    fontSize: 18,
+    fontSize: width * 0.045,
     fontWeight: '700',
     color: '#333',
     marginBottom: 6,
   },
   userDepartment: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     color: '#777',
     marginBottom: 5,
   },
   userPosition: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     color: '#777',
     marginBottom: 5,
   },
   userInfoText: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     color: '#555',
     marginBottom: 3,
   },
@@ -103,25 +105,13 @@ export const styleadmin = StyleSheet.create({
   noUsersText: {
     textAlign: 'center',
     color: '#888',
-    fontSize: 18,
+    fontSize: width * 0.045,
     marginTop: 30,
     fontWeight: '500',
   },
   loaderContainer: {
     marginTop: 30,
     alignItems: 'center',
-  },
-  sortButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  sortButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
   },
   paginationContainer: {
     flexDirection: 'row',
@@ -130,7 +120,7 @@ export const styleadmin = StyleSheet.create({
     marginTop: 20,
   },
   pageNumber: {
-    fontSize: 16,
+    fontSize: width * 0.04,
     fontWeight: '600',
     marginHorizontal: 15,
   },
@@ -142,7 +132,7 @@ export const styleadmin = StyleSheet.create({
   },
   paginationText: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: width * 0.04,
     fontWeight: '600',
   },
   historyButton: {
@@ -155,15 +145,8 @@ export const styleadmin = StyleSheet.create({
   },
   historyButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: width * 0.04,
     fontWeight: '600',
-  },
-  filterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    alignItems: 'center',
-    marginBottom: 20,
   },
   modeSwitchContainer: {
     flexDirection: 'row',
@@ -172,18 +155,12 @@ export const styleadmin = StyleSheet.create({
     marginVertical: 15,
   },
   modeSwitchText: {
-    fontSize: 15,
+    fontSize: width * 0.04,
     marginRight: 12,
     color: '#333',
   },
-  buttonIcon: {
-    width: 24,
-    height: 24,
-    tintColor: '#fff',
-    marginRight: 8,
-  },
   userStatus: {
-    fontSize: 14,
+    fontSize: width * 0.04,
     fontWeight: 'bold',
     marginTop: 6,
   },
@@ -194,6 +171,6 @@ export const styleadmin = StyleSheet.create({
     color: 'red',
   },
   blockedStatus: {
-    color: 'black', 
+    color: 'black',
   },
 });
