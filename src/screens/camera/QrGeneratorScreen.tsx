@@ -9,20 +9,15 @@ export const QrGeneratorScreen = () => {
     const [estado, setEstado] = useState(false);
     const [time, setTime] = useState(0);
 
-    // Objeto con los datos del usuario desde AuthContext
+    // Crear objeto con los datos esenciales
     const usuario = {
-        image: authState.image, // Imagen del usuario
-        name: authState.name, // Nombre
-        f_surname: authState.f_surname, // Primer apellido
-        m_surname: authState.m_surname, // Segundo apellido
-        department: authState.department, // Departamento
-        position: authState.position, // Puesto
-        status: authState.status, // Estado
-        userKey: authState.userKey, // Clave de usuario
-        hora: Date.now(), // Hora de generación del QR
+        fullName: `${authState.name} ${authState.f_surname} ${authState.m_surname}`, // Nombre completo
+        department: authState.department,
+        position: authState.position,
+        userKey: authState.userKey,
+        hora: Date.now(),
     };
 
-    // Temporizador optimizado
     useEffect(() => {
         let timer;
         if (estado && time > 0) {
@@ -30,39 +25,32 @@ export const QrGeneratorScreen = () => {
                 setTime(prevTime => prevTime - 1000);
             }, 1000);
         }
-        return () => clearInterval(timer); // Limpiar intervalo cuando el estado cambie
+        return () => clearInterval(timer);
     }, [estado, time]);
 
-    // Formato de tiempo con useCallback para evitar recreación en cada renderizado
     const getTimer = useCallback(() => {
-        if (time <= 0) return '00:00'; // Garantiza que no se devuelvan valores incorrectos
+        if (time <= 0) return '00:00';
         const seconds = Math.floor(time / 1000);
-        const formattedTime = seconds < 10 ? `0${seconds}` : `${seconds}`;
-        return `00:${formattedTime}`;
+        return `00:${seconds < 10 ? `0${seconds}` : seconds}`;
     }, [time]);
 
-    // Función para manejar la generación del QR
     const handleGenerateQR = () => {
-        setTime(15000);  // Tiempo de 15 segundos
-        setEstado(true);  // Iniciar el temporizador
+        setTime(15000);
+        setEstado(true);
     };
 
-    // Cálculo del porcentaje de progreso basado en el tiempo restante
     const progress = (time / 15000) * 100;
 
     return (
         <View style={styleGenerator.container}>
-            <Text style={styleGenerator.timerText}>
-                {getTimer()} {/* Mostrar el temporizador formateado */}
-            </Text>
+            <Text style={styleGenerator.timerText}>{getTimer()}</Text>
             
-            {/* Barra de progreso */}
             {estado && (
                 <View style={styleGenerator.progressContainer}>
                     <View style={[styleGenerator.progressBar, { width: `${progress}%` }]} />
                 </View>
             )}
-            
+
             {time === 0 ? (
                 <TouchableOpacity onPress={handleGenerateQR}>
                     <View style={styleGenerator.generateButton}>
@@ -71,11 +59,11 @@ export const QrGeneratorScreen = () => {
                 </TouchableOpacity>
             ) : (
                 <QRCode
-                    value={JSON.stringify(usuario)} // Convertir el objeto usuario a JSON
-                    color="#5271ff" // Morado atractivo
-                    backgroundColor="#FFFFFF" // Fondo blanco para el QR
+                    value={JSON.stringify(usuario)} 
+                    color="#5271ff"
+                    backgroundColor="#FFFFFF"
                     size={300}
-                    logo={{ uri: `data:image/png;base64,${authState.image}` }} // Logo basado en la imagen del usuario
+                    logo={{ uri: `data:image/png;base64,${authState.image}` }}
                     logoBorderRadius={30}
                     logoSize={50}
                 />

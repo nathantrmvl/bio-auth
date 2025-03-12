@@ -5,19 +5,18 @@ import { Fab } from "../../componentes/Fab";
 
 export const QrScannerScreen = () => {
     const [getFacing, setFacing] = useState<"front" | "back">("back");
-    const [data, setData] = useState<ScanningResult | null>(null);
+    const [data, setData] = useState<any>(null);
     const [permissions, requestPermissions] = useCameraPermissions();
     const [loading, setLoading] = useState(true);
 
-    const requestCameraPermissions = async () => {
-        if (!permissions?.granted) {
-            await requestPermissions();
-        } else {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
+        const requestCameraPermissions = async () => {
+            if (!permissions?.granted) {
+                await requestPermissions();
+            } else {
+                setLoading(false);
+            }
+        };
         requestCameraPermissions();
     }, [permissions]);
 
@@ -45,18 +44,47 @@ export const QrScannerScreen = () => {
                 <CameraView
                     facing={getFacing}
                     barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
-                    onBarcodeScanned={(result: ScanningResult) => setData(result)}
+                    onBarcodeScanned={(result: ScanningResult) => {
+                        try {
+                            const scannedData = JSON.parse(result.data);
+                            setData(scannedData);
+                        } catch (error) {
+                            console.error("Error al leer el QR:", error);
+                        }
+                    }}
                     style={styles.camera}
                 >
                     <View style={styles.overlay}>
                         <View style={styles.scanBox} />
                         <Text style={styles.scanText}>Escanear QR</Text>
+
                         {data && (
                             <ScrollView contentContainerStyle={styles.dataContainer}>
-                                <Text style={styles.dataText}>Data Escaneada:</Text>
-                                <Text style={styles.dataDetailsText}>{JSON.stringify(data, null, 2)}</Text>
+                                <Text style={styles.dataText}>Datos Escaneados:</Text>
+
+                                {data.fullName && (
+                                    <Text style={styles.dataDetailsText}>
+                                        <Text style={styles.bold}>Nombre completo:</Text> {data.fullName}
+                                    </Text>
+                                )}
+                                {data.department && (
+                                    <Text style={styles.dataDetailsText}>
+                                        <Text style={styles.bold}>Departamento:</Text> {data.department}
+                                    </Text>
+                                )}
+                                {data.position && (
+                                    <Text style={styles.dataDetailsText}>
+                                        <Text style={styles.bold}>Puesto:</Text> {data.position}
+                                    </Text>
+                                )}
+                                {data.userKey && (
+                                    <Text style={styles.dataDetailsText}>
+                                        <Text style={styles.bold}>Usuario:</Text> {data.userKey}
+                                    </Text>
+                                )}
                             </ScrollView>
                         )}
+
                         <Fab action={toggleCameraFacing} title="🔄" position="button_right" />
                     </View>
                 </CameraView>
@@ -112,6 +140,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         maxHeight: 200,
         overflow: "scroll",
+    },
+    bold: {
+        fontWeight: "bold",
     },
     permissionContainer: {
         flex: 1,
