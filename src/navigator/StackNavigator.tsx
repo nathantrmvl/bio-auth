@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AdminHome } from '../screens/users/AdminHome';
+import { AdminHome } from '../screens/admins/AdminHome';
 import { UserCredentialScreen } from '../screens/users/UserCredentialScreen';
-import { LoginScreen } from '../screens/users/LoginScreen';
+import { LoginScreen } from '../screens/access/LoginScreen';
 import { AuthContext } from '../context/AuthContext';
 import { QrScannerScreen } from '../screens/camera/QrScannerScreen';
-import { TransporteScreen } from '../screens/users/TransporteScreen';
+//import  TransporteScreen  from '../screens/autobus/TransporteScreen';
 
 export type RootStackParams = {
     AdminHome: undefined; // No recibe parámetros
@@ -54,9 +54,10 @@ export const StackNavigator = () => {
                 component={QrScannerScreen} 
                 options={{ title: "QR Scanner" }}
             />
-            <Stack.Screen name="TransporteScreen" 
+           {/* <Stack.Screen name="TransporteScreen" 
             component={TransporteScreen} 
-            options={{ title: "Seguimiento de Transporte" }} /> 
+            options={{ title: "Seguimiento de Transporte" }} /> */}
+
         </Stack.Navigator>
     );
 };

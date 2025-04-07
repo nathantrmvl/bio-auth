@@ -88,16 +88,6 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
   },
-  input: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 20,
-    fontSize: 16,
-    color: "#333",
-  },
   modalButton: {
     backgroundColor: "#007bff",
     padding: 10,

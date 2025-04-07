@@ -1,8 +1,8 @@
 // UserNavigator.tsx
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { FormUserScreen } from "../screens/users/FormUserScreen";
-import { AdminHome } from "../screens/users/AdminHome";
+import { FormUserScreen } from "../screens/admins/FormUserScreen";
+import { AdminHome } from "../screens/admins/AdminHome";
 import { UserResponse } from "../interfaces/api-bioauth";
 
 export type RootStackUserParam = {

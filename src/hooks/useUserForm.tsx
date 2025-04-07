@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from "react";
-import { useUserApi } from "../hooks/useUserApi";
+import { crearUsuario, editarUsuario, eliminarUsuario } from "../api/bioapi";
 
 export interface UserForm {
   _id?: string;
@@ -9,7 +9,7 @@ export interface UserForm {
   image: string;
   email: string;
   userKey: string;
-  password: string;
+  password?: string | null;
   type_user: string;
   position: string;
   department: string;
@@ -25,13 +25,14 @@ const initialState: UserForm = {
   userKey: '',
   password: '',
   type_user: '',
-  position: 'sin definir',
-  department: 'sin asignar',
-  status: '',
+  position: '',
+  department: '',
+  status: 'Activo',
 };
 
 type Action =
-  | { type: "HANDLE_INPUT_CHANGE"; payload: { fieldName: keyof UserForm; value: string | boolean } }
+  | { type: "HANDLE_INPUT_CHANGE"; payload: { fieldName: keyof UserForm; value: string | null } }
+  | { type: "SET_FORM_DATA"; payload: Partial<UserForm> }
   | { type: "RESET_FORM" };
 
 const formReducer = (state: UserForm, action: Action): UserForm => {
@@ -41,6 +42,11 @@ const formReducer = (state: UserForm, action: Action): UserForm => {
         ...state,
         [action.payload.fieldName]: action.payload.value,
       };
+    case "SET_FORM_DATA":
+      return {
+        ...state,
+        ...action.payload,
+      };
     case "RESET_FORM":
       return initialState;
     default:
@@ -49,30 +55,32 @@ const formReducer = (state: UserForm, action: Action): UserForm => {
 };
 
 export const useUserForm = () => {
-  const { createUser, updateUser, deleteUser } = useUserApi();
   const [state, dispatch] = useReducer(formReducer, initialState);
 
-  const handleInputChange = (fieldName: keyof UserForm, value: string | boolean) => {
+  const handleInputChange = (fieldName: keyof UserForm, value: string | null) => {
     dispatch({ type: "HANDLE_INPUT_CHANGE", payload: { fieldName, value } });
   };
 
-  const handleSubmit = useCallback(async () => {
-    const { _id, ...userData } = state;
+  const setFormData = (data: Partial<UserForm>) => {
+    dispatch({ type: "SET_FORM_DATA", payload: data });
+  };
+
+  const handleSubmit = useCallback(async (formData: UserForm) => {
+    const { _id, ...userData } = formData;
 
     if (_id) {
-      // Si tiene _id, actualizar usuario
-      await updateUser(_id, userData);  
+      return await editarUsuario(_id, userData);
     } else {
-      // Si no tiene _id, crear usuario
-      await createUser(state);  
+      if (!userData.password) {
+        throw new Error("La contraseña es requerida para nuevos usuarios");
+      }
+      return await crearUsuario(userData as Required<UserForm>);
     }
-  }, [state, createUser, updateUser]);
+  }, []);
 
-  const handleDelete = useCallback(() => {
-    if (state._id) {
-      deleteUser(state._id);
-    }
-  }, [state._id, deleteUser]);
+  const handleDelete = useCallback(async (id: string) => {
+    return await eliminarUsuario(id);
+  }, []);
 
   const handleReset = () => {
     dispatch({ type: "RESET_FORM" });
@@ -81,6 +89,7 @@ export const useUserForm = () => {
   return {
     state,
     handleInputChange,
+    setFormData,
     handleSubmit,
     handleDelete,
     handleReset,

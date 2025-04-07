@@ -3,98 +3,305 @@ import { StyleSheet } from 'react-native';
 export const stylecredential = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f4f4f4', // Fondo claro
-        padding: 20,
+        backgroundColor: '#f0f4f8',
     },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    headerTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        color: '#333', // Texto oscuro
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        padding: 15,
     },
     card: {
-        borderRadius: 5,
-        padding: 25,
-        alignItems: 'center',
-        shadowColor: '#000',
+        backgroundColor: '#fff',
+        borderRadius: 25,
+        shadowColor: '#1c31a5',
         shadowOffset: { width: 0, height: 10 },
         shadowOpacity: 0.2,
-        shadowRadius: 15,
+        shadowRadius: 20,
         elevation: 10,
-        backgroundColor: '#fff', // Fondo blanco
-    },
-    companyName: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#333', // Texto oscuro
+        overflow: 'hidden',
         marginBottom: 20,
-        textAlign: 'center',
+    },
+    // Header Styles
+    headerContainer: {
+        padding: 25,
+        paddingBottom: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+    },
+    particlesContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    particle: {
+        position: 'absolute',
+        width: 6,
+        height: 6,
+        borderRadius: 3,
+        backgroundColor: 'rgba(255,255,255,0.5)',
+    },
+    companyLogo: {
+        position: 'absolute',
+        top: 20,
+        right: 20,
+        width: 60,
+        height: 60,
+        resizeMode: 'contain',
+        opacity: 0.8,
+    },
+    profileContainer: {
+        alignItems: 'center',
+        marginBottom: 20,
+        zIndex: 2,
+    },
+    profileImageBorder: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        borderWidth: 4,
+        borderColor: 'rgba(255,255,255,0.8)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        elevation: 5,
+        backgroundColor: 'rgba(255,255,255,0.2)',
     },
     profileImage: {
-        width: 175,
-        height: 175,
-        borderRadius: 5, // Imagen circular
-        marginBottom: 20,
-        borderWidth: 1,
-        borderColor: '#e0e0e0', // Borde gris claro
+        width: 110,
+        height: 110,
+        borderRadius: 55,
+        borderWidth: 3,
+        borderColor: 'rgba(255,255,255,0.5)',
+    },
+    statusBadge: {
+        position: 'absolute',
+        bottom: 0,
+        right: 10,
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: '#fff',
+    },
+    activeStatus: {
+        backgroundColor: '#4CAF50',
+    },
+    inactiveStatus: {
+        backgroundColor: '#F44336',
+    },
+    blockedStatus: {
+        backgroundColor: '#FF9800',
+    },
+    userInfo: {
+        alignItems: 'center',
+        zIndex: 2,
     },
     name: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#333', // Texto oscuro
-        marginBottom: 10,
-        textAlign: 'center',
+        color: '#fff',
+        marginBottom: 5,
+        textShadowColor: 'rgba(0,0,0,0.2)',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 3,
+        letterSpacing: 0.5,
     },
     position: {
-        fontSize: 18,
-        color: '#666', // Texto gris
-        marginBottom: 20,
-        textAlign: 'center',
+        fontSize: 16,
+        color: '#fff',
+        opacity: 0.9,
+        textShadowColor: 'rgba(0,0,0,0.2)',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 2,
     },
-    infoSection: {
-        width: '100%',
+    glassEffect: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.2)',
+        zIndex: 1,
+    },
+    // Info Section Styles
+    infoContainer: {
+        borderTopWidth: 1,
+        borderTopColor: 'rgba(28, 49, 165, 0.1)',
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(28, 49, 165, 0.1)',
+        paddingVertical: 10,
+    },
+    infoHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+    },
+    infoHeaderText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#1c31a5',
+        marginLeft: 10,
+        letterSpacing: 0.5,
+    },
+    infoContent: {
+        paddingHorizontal: 20,
+        paddingBottom: 15,
+    },
+    infoRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 20,
+    },
+    infoLabel: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: '#6a6a6a',
+        marginLeft: 15,
+        marginBottom: 2,
+        letterSpacing: 1,
+        textTransform: 'uppercase',
     },
     infoText: {
         fontSize: 16,
-        color: '#333', // Texto oscuro
-        marginBottom: 8,
-        textAlign: 'center',
+        color: '#333',
+        marginLeft: 15,
     },
-    statusContainer: {
-        marginTop: 15,
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 20,
-        alignSelf: 'center',
-    },
-    statusText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#fff', // Texto blanco
-    },
-    active: {
-        backgroundColor: '#28a745', // Verde para estado activo
-    },
-    inactive: {
-        backgroundColor: '#ffc107', // Amarillo para estado inactivo
-    },
-    blocked: {
-        backgroundColor: '#dc3545', // Rojo para estado bloqueado
-    },
-    datesContainer: {
-        marginTop: 20,
-        width: '100%',
+    datesRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginTop: 10,
+    },
+    dateBox: {
+        width: '48%',
+        backgroundColor: 'rgba(28, 49, 165, 0.05)',
+        borderRadius: 10,
+        padding: 12,
+        alignItems: 'center',
+    },
+    dateLabel: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: '#6a6a6a',
+        marginBottom: 5,
+        letterSpacing: 1,
+        textTransform: 'uppercase',
     },
     dateText: {
         fontSize: 14,
-        color: '#666', // Texto gris
+        fontWeight: '600',
+        color: '#1c31a5',
+    },
+    additionalInfo: {
+        overflow: 'hidden',
+        paddingHorizontal: 20,
+    },
+    additionalRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    additionalText: {
+        fontSize: 14,
+        color: '#555',
+        marginLeft: 10,
+    },
+    // QR Section Styles
+    qrSection: {
+        padding: 25,
+        paddingTop: 15,
+        alignItems: 'center',
+    },
+    qrHolographicContainer: {
+        position: 'relative',
+        marginBottom: 25,
+    },
+    holographicEffect: {
+        position: 'absolute',
+        top: -20,
+        left: -20,
+        right: -20,
+        bottom: -20,
+        borderRadius: 30,
+        backgroundColor: 'rgba(28, 49, 165, 0.1)',
+        borderWidth: 2,
+        borderColor: 'rgba(28, 49, 165, 0.3)',
+    },
+    qrContainer: {
+        width: 240,
+        height: 240,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    qrGradient: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+        overflow: 'hidden',
+    },
+    qrImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        position: 'absolute',
+        backgroundColor: '#fff',
+        borderWidth: 2,
+        borderColor: '#1c31a5',
+    },
+    qrPlaceholder: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: 'rgba(28, 49, 165, 0.1)',
+        borderRadius: 20,
+        padding: 20,
+        backgroundColor: 'rgba(28, 49, 165, 0.03)',
+    },
+    qrPlaceholderText: {
+        marginTop: 15,
+        textAlign: 'center',
+        color: 'rgba(28, 49, 165, 0.5)',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+    // Button Styles
+    generateButton: {
+        backgroundColor: '#1c31a5',
+        paddingVertical: 15,
+        borderRadius: 12,
+        width: '100%',
+        shadowColor: '#1c31a5',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        elevation: 5,
+    },
+    activeButton: {
+        backgroundColor: '#4CAF50',
+        shadowColor: '#4CAF50',
+    },
+    buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 16,
+        letterSpacing: 0.5,
     },
 });

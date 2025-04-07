@@ -18,15 +18,18 @@ export const loginUser = async (userKey: string, password: string) => {
     }
 };
 
-// Función para crear un usuario
+// Función para crear un usuario (siempre requiere password)
 export const crearUsuario = async (userData: { 
     name: string, f_surname: string, m_surname: string,
     email: string, password: string, type_user: string, 
     userKey: string, position: string, department: string, status: string 
 }) => {
     try {
-        userData.status = String(userData.status);
-        const response = await bioApi.post("/users", userData);
+        const dataToSend = {
+            ...userData,
+            status: String(userData.status)
+        };
+        const response = await bioApi.post("/users", dataToSend);
         return response.data;
     } catch (error: any) {
         console.error("Error creando usuario:", error.response?.data);
@@ -34,17 +37,26 @@ export const crearUsuario = async (userData: {
     }
 };
 
-// Función para editar un usuario por _id
+// Función para editar un usuario (password opcional)
 export const editarUsuario = async (id: string, userData: Partial<{ 
     name: string, f_surname: string, m_surname: string,
-    email: string, password: string, type_user: string, 
+    email: string, password?: string | null, type_user: string, 
     userKey: string, position: string, department: string, status: string 
 }>) => {
     try {
-        if (userData.status !== undefined) {
-            userData.status = String(userData.status);
+        // Eliminamos el campo password si es null o undefined
+        const { password, ...restData } = userData;
+        const dataToSend = {
+            ...restData,
+            status: String(userData.status)
+        };
+
+        // Solo añadimos password si se proporcionó
+        if (password) {
+            dataToSend.password = password;
         }
-        const response = await bioApi.patch(`/users/${id}`, userData);
+
+        const response = await bioApi.patch(`/users/${id}`, dataToSend);
         return response.data;
     } catch (error: any) {
         console.error("Error editando usuario:", error.response?.data);
